@@ -24,6 +24,10 @@ const materiaSchema = new Schema({
     status:{        
         type:Boolean,
         default:true
+    },
+    token:{
+        type:String,
+        default:null
     }
 },{
     timestamps:true

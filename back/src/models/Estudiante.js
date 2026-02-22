@@ -1,6 +1,4 @@
 import {Schema, model} from 'mongoose'
-import bcrypt from "bcryptjs"
-
 
 const estudianteSchema = new Schema({
     nombre:{
@@ -48,10 +46,6 @@ const estudianteSchema = new Schema({
         type:Boolean,
         default:true
     },
-    token:{
-        type:String,
-        default:null
-    },
     rol:{
         type:String,
         default:"estudiante"
@@ -60,14 +54,6 @@ const estudianteSchema = new Schema({
 },{
     timestamps:true
 })
-
-
-// Método para crear un token 
-estudianteSchema.methods.createToken= function(){
-    const tokenGenerado = Math.random().toString(36).slice(2)
-    this.token = tokenGenerado
-    return tokenGenerado
-}
 
 
 export default model('Estudiante',estudianteSchema)
