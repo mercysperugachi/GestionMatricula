@@ -14,10 +14,11 @@ const crearTokenJWT = (id, rol) => {
 
 const verificarTokenJWT = async (req, res, next) => {
 
-    const {autorization} = req.headers
-    if(!autorization) return res.status(401).json({msg:"No hay token, acceso no autorizado"})
+    const {authorization} = req.headers
+    if(!authorization) return res.status(401).json({msg:"No hay token, acceso no autorizado"})
+    
     try{
-        const token = autorization.split(" ")[1]
+        const token = authorization.split(" ")[1]
         const {id,rol} = jwt.verify(token, process.env.JWT_SECRET)
 
         // Verificar que el usuario exista
@@ -26,7 +27,11 @@ const verificarTokenJWT = async (req, res, next) => {
             if(!usuarioBDD) return res.status(404).json({msg:"El usuario no existe"})
             req.usuario = usuarioBDD
             return next()
+        } else {
+            // SIEMPRE responde algo si la condición no se cumple
+            return res.status(403).json({msg:"No tienes permisos para realizar esta acción"})
         }
+
     } catch (error){  
         console.error(error)
         return res.status(401).json({msg:`Token no válido o expirado- ${error}`})

@@ -14,7 +14,19 @@ const crearMateria = async (req, res) => {
     }
 }
 
-export {
-    crearMateria
+const verMateria = async (req, res) => {
+    try{
+        const {id} = req.params
+        if(!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({msg:"ID de materia no válido"})
+        const materiaBDD = await Materia.findById(id)
+        if(!materiaBDD) return res.status(404).json({msg:"Materia no encontrada"})
+        res.status(200).json({msg:"Materia encontrada", materia:materiaBDD})
+    } catch (error) {
+        res.status(500).json({msg:"Error al ver la materia", error:error.message})
+    }
+}
 
+export {
+    crearMateria,
+    verMateria
 }
