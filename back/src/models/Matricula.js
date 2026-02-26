@@ -17,12 +17,12 @@ const matriculaSchema = new Schema({
         default:null
     },
     estudiante:{
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref:"Estudiante",
         required:true
     },
     materia:{
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref:"Materia",
         required:true
     },
